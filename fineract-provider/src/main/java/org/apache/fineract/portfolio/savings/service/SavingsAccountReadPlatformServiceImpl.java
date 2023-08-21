@@ -196,6 +196,16 @@ public class SavingsAccountReadPlatformServiceImpl implements SavingsAccountRead
         objectArray[0] = hierarchySearchString;
         int arrayPos = 1;
         if (searchParameters != null) {
+            if (searchParameters.getStartDate() != null) {
+                sqlBuilder.append(" and sa.date_of_birth >= ?");
+                objectArray[arrayPos] = searchParameters.getStartDate();
+                arrayPos = arrayPos + 1;
+            }
+            if (searchParameters.getEndDate() != null) {
+                sqlBuilder.append(" and sa.date_of_birth <= ?");
+                objectArray[arrayPos] = searchParameters.getEndDate();
+                arrayPos = arrayPos + 1;
+            }
             String sqlQueryCriteria = searchParameters.getSqlSearch();
             if (StringUtils.isNotBlank(sqlQueryCriteria)) {
                 sqlQueryCriteria = sqlQueryCriteria.replaceAll("accountNo", "sa.account_no");

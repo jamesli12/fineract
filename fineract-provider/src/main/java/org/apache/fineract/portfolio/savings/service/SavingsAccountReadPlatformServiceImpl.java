@@ -192,17 +192,17 @@ public class SavingsAccountReadPlatformServiceImpl implements SavingsAccountRead
         sqlBuilder.append(" join m_office o on o.id = c.office_id");
         sqlBuilder.append(" where o.hierarchy like ?");
 
-        final Object[] objectArray = new Object[2];
+        final Object[] objectArray = new Object[4];
         objectArray[0] = hierarchySearchString;
         int arrayPos = 1;
         if (searchParameters != null) {
             if (searchParameters.getStartDate() != null) {
-                sqlBuilder.append(" and sa.date_of_birth >= ?");
+                sqlBuilder.append(" and c.date_of_birth>=?");
                 objectArray[arrayPos] = searchParameters.getStartDate();
                 arrayPos = arrayPos + 1;
             }
             if (searchParameters.getEndDate() != null) {
-                sqlBuilder.append(" and sa.date_of_birth <= ?");
+                sqlBuilder.append(" and c.date_of_birth<=?");
                 objectArray[arrayPos] = searchParameters.getEndDate();
                 arrayPos = arrayPos + 1;
             }
